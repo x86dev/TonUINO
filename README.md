@@ -3,7 +3,9 @@
 # Änderungen in diesem Repository
 
 * Unterstützung für GitHub Actions, um jede eingespielte Änderung zu testen (siehe Badge oben).
-* Integration von PlatformIO inklusive initiale Unterstützung von Unit Tests und eigenen Konfigurationsdateien.
+* Integration von [Arduino CLI](https://github.com/arduino/arduino-cli).
+* Integration von [PlatformIO](https://platformio.org) inklusive initialer Unterstützung von Unit Tests und eigenen Konfigurationsdateien.
+* Quelltext in eigenen Ordner verschoben (Rückwärtskompatibel mit der Arduino IDE)
 * Entfernung einiger [Compiler-Warnungen](https://github.com/xfjx/TonUINO/pull/54).
 * Kleinen Fehler bei Erstinbetriebnahme [gefixt](http://discourse.voss.earth/t/version-2-1dev-lautstaerke-durch-langes-druecken-der-tasten-geht-nicht/4523/23).
 * Verzögerung für Lautstärkeregelung [hinzugefügt](http://discourse.voss.earth/t/lautstaerke-kleinschrittiger-erhoehen/3022/5).
