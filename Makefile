@@ -54,22 +54,31 @@ endif
 endif
 
 init:
+ifneq (, $(shell which arduino-cli))
 	@arduino-cli config init
 	@arduino-cli core update-index
 	@arduino-cli core install $(BOARD)
 	@arduino-cli lib install "DFPlayer Mini Mp3 by Makuna"
 	@arduino-cli lib install "MFRC522"
 	@arduino-cli lib install "JC_Button"
+endif
+ifneq (, $(shell which pio))
 	@platformio lib install 1561 # DFPlayer Mini Mp3 by Makuna
 	@platformio lib install 2284 # EEPROM
 	@platformio lib install 77   # JC_Button
 	@platformio lib install 63   # MFRC522
+endif
 
 compile: $(SKETCH)/*.cpp
 	@arduino-cli compile --fqbn $(MCU) --warnings none "$(SKETCH)"
 
 find:
+ifneq (, $(shell which arduino-cli))
 	@arduino-cli board list
+endif
+ifneq (, $(shell which pio))
+	@pio device list
+endif
 
 upload: compile
 	@arduino-cli upload -p $(SERIAL) --fqbn $(MCU) --verify Tonuino
