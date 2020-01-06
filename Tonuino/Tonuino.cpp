@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <DFMiniMp3.h>
 #include <EEPROM.h>
 #include <JC_Button.h>
@@ -83,6 +84,13 @@ void writeCard(nfcTagObject nfcTag);
 void dump_byte_array(byte * buffer, byte bufferSize);
 void adminMenu(bool fromCard = false);
 bool knownCard = false;
+void setstandbyTimer();
+void playFolder();
+void playShortCut(uint8_t shortCut);
+void setupCard();
+void resetCard();
+bool askCode(uint8_t *code);
+bool setupFolder(folderSettings * theFolder);
 
 // implement a notification class,
 // its member methods will get called

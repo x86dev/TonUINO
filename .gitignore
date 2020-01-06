@@ -29,7 +29,8 @@ Temporary Items
 
 # TonUINO
 /tools/*.pyc
-Tonuino
+Tonuino/*.elf
+Tonuino/*.hex
 
 # Platform.io
 .pio/

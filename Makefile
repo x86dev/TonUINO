@@ -13,7 +13,7 @@ SERIAL = /dev/cu.usbserial-1410
 SKETCH = Tonuino
 ## Helper
 OS = $(shell uname -s)
-.PHONY: help
+.PHONY: help test
 
 info:
 	$(info TonUINO Makefile)
@@ -65,29 +65,25 @@ init:
 	@platformio lib install 77   # JC_Button
 	@platformio lib install 63   # MFRC522
 
-prepare:
-	@mkdir -p "$(SKETCH)" ; echo "folder is only for backwards compatibility" > "$(SKETCH)/DO-NOT-EDIT"
-	@if [ "$(SKETCH)/$(SKETCH).ino" -nt "./$(SKETCH).ino" ]; then echo "ERROR: do not edit files in TonUINO/!"; exit 1; fi;
-	@cp -p "./$(SKETCH).ino" "$(SKETCH)/$(SKETCH).ino"
-
-compile: prepare *.ino
+compile: $(SKETCH)/*.cpp
 	@arduino-cli compile --fqbn $(MCU) --warnings none "$(SKETCH)"
 
 find:
 	@arduino-cli board list
 
 upload: compile
-	@arduino-cli upload -p $(SERIAL) --fqbn $(MCU) --verify "$(SKETCH)"
+	@arduino-cli upload -p $(SERIAL) --fqbn $(MCU) --verify Tonuino
 
-test: prepare
-	@arduino-cli compile --fqbn $(MCU) --warnings more "$(SKETCH)"
+test:
+	@arduino-cli compile --fqbn $(MCU) --warnings all "$(SKETCH)"
 ifneq (, $(shell which pio))
 	@pio test -e native
 endif
 
-check: *.ino
-	@cppcheck --enable=all --std=c++20 --language=c++ *.ino *.h
+check: $(SKETCH)/*.cpp
+	@cppcheck --enable=all --std=c++20 --language=c++ $(SKETCH)/*.cpp $(SKETCH)/*.h
 
 clean:
-	@rm -rf "$(SKETCH)"
 	@rm -rf ".pio/build/"
+	@rm -f "$(SKETCH)"/*.hex
+	@rm -f "$(SKETCH)"/*.elf
