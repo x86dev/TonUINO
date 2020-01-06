@@ -76,12 +76,11 @@ upload: compile
 
 test:
 	@arduino-cli compile --fqbn $(MCU) --warnings all "$(SKETCH)"
+	@cppcheck --enable=all --std=c++20 --language=c++ $(SKETCH)/*.cpp $(SKETCH)/*.h
 ifneq (, $(shell which pio))
+	@pio check
 	@pio test -e native
 endif
-
-check: $(SKETCH)/*.cpp
-	@cppcheck --enable=all --std=c++20 --language=c++ $(SKETCH)/*.cpp $(SKETCH)/*.h
 
 clean:
 	@rm -rf ".pio/build/"
