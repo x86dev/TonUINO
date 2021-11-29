@@ -159,7 +159,7 @@ void resetSettings() {
   mySettings.version = 2;
   mySettings.maxVolume = 25;
   mySettings.minVolume = 5;
-  mySettings.initVolume = 15;
+  mySettings.initVolume = 12;
   mySettings.eq = 1;
   mySettings.locked = false;
   mySettings.standbyTimer = 0;
@@ -300,6 +300,8 @@ class FeedbackModifier: public Modifier {
     }
     virtual bool handleRFID(nfcTagObject *newCard) {
       Serial.println(F("== FeedbackModifier::handleRFID()"));
+      mp3.playMp3FolderTrack(969);
+      delay(1000);
       return false;
     }
 };
