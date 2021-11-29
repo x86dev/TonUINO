@@ -21,7 +21,7 @@
 //#define FIVEBUTTONS
 
 // uncomment the below line to stop playback when card is removed
-//#define PAUSEONCARDREMOVAL
+#define PAUSEONCARDREMOVAL
 
 // delay for volume buttons
 #define LONG_PRESS_DELAY 300
@@ -961,7 +961,7 @@ void playShortCut(uint8_t shortCut) {
 
 void loop() {
   int _rfid_error_counter = 0;
-  
+
   do {
 
 #ifdef PAUSEONCARDREMOVAL
@@ -975,7 +975,7 @@ void loop() {
     byte bufferATQA[2];
     byte bufferSize = sizeof(bufferATQA);
     MFRC522::StatusCode result = mfrc522.PICC_RequestA(bufferATQA, &bufferSize);
-  
+
     if(result == mfrc522.STATUS_OK){
       _rfid_error_counter = 0;
       card_present = true;
@@ -1130,7 +1130,7 @@ void loop() {
 
 #ifndef PAUSEONCARDREMOVAL
   } while (!mfrc522.PICC_IsNewCardPresent());
-  
+
   // RFID Karte wurde aufgelegt
   if (!mfrc522.PICC_ReadCardSerial())
     return;
@@ -1139,7 +1139,7 @@ void loop() {
     if (myCard.cookie == cardCookie && myCard.nfcFolderSettings.folder != 0 && myCard.nfcFolderSettings.mode != 0) {
       playFolder();
     }
-  
+
     // Neue Karte konfigurieren
     else if (myCard.cookie != cardCookie) {
       knownCard = false;
@@ -1155,7 +1155,7 @@ void loop() {
 #ifdef PAUSEONCARDREMOVAL
   // solange keine Karte aufgelegt oder heruntergenommen wird
   } while ( !(!card_present && card_present_prev) && !(card_present && !card_present_prev) );
-  
+
   // RFID Karte wurde entfernt
   if (!card_present && card_present_prev){
     card_present_prev = card_present;
@@ -1187,7 +1187,7 @@ void loop() {
       if (myCard.cookie == cardCookie && myCard.nfcFolderSettings.folder != 0 && myCard.nfcFolderSettings.mode != 0) {
         playFolder();
       }
-  
+
       // Neue Karte konfigurieren
       else if (myCard.cookie != cardCookie) {
         knownCard = false;
