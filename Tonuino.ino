@@ -584,7 +584,8 @@ void setup() {
   }
 
   // Start Shortcut "at Startup" - e.g. Welcome Sound
-  playShortCut(3);
+  mp3.playMp3FolderTrack(968);
+  delay(1000);
 
   // By default we're using the feedback modifier.
   activeModifier = new FeedbackModifier();
