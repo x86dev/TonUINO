@@ -748,7 +748,7 @@ void setup() {
   Serial.println(F("|_   _|___ ___|  |  |     |   | |     |"));
   Serial.println(F("  | | | . |   |  |  |-   -| | | |  |  |"));
   Serial.println(F("  |_| |___|_|_|_____|_____|_|___|_____|\n"));
-  Serial.println(F("TonUINO Version 2.1"));
+  Serial.println(F("TonUINO Version 2.1 mod @ x86dev"));
   Serial.println(F("created by Thorsten Voß and licensed under GNU/GPL."));
   Serial.println(F("Information and contribution at https://tonuino.de.\n"));
 
@@ -801,9 +801,11 @@ void setup() {
     loadSettingsFromFlash();
   }
 
-
   // Start Shortcut "at Startup" - e.g. Welcome Sound
   playShortCut(3);
+
+  // By default we're using the feedback modifier.
+  activeModifier = new FeedbackModifier();
 }
 
 void readButtons() {
@@ -1164,6 +1166,7 @@ void loop() {
         if (activeModifier->handlePause() == true)
           return;
       if (ignorePauseButton == false)
+      {
         if (isPlaying()) {
           mp3.pause();
           setstandbyTimer();
@@ -1172,6 +1175,7 @@ void loop() {
           mp3.start();
           disablestandbyTimer();
         }
+      }
       ignorePauseButton = false;
       return;
   }
@@ -1756,14 +1760,8 @@ bool readCard(nfcTagObject * nfcTag) {
       switch (tempCard.nfcFolderSettings.mode ) {
         case 0:
         case 255:
+        default:
           mfrc522.PICC_HaltA(); mfrc522.PCD_StopCrypto1(); adminMenu(true);  break;
-        case 1: activeModifier = new SleepTimer(tempCard.nfcFolderSettings.special); break;
-        case 2: activeModifier = new FreezeDance(); break;
-        case 3: activeModifier = new Locked(); break;
-        case 4: activeModifier = new ToddlerMode(); break;
-        case 5: activeModifier = new KindergardenMode(); break;
-        case 6: activeModifier = new RepeatSingleModifier(); break;
-
       }
       delay(2000);
       return false;
