@@ -24,7 +24,7 @@
 #define PAUSEONCARDREMOVAL
 
 // delay for volume buttons
-#define LONG_PRESS_DELAY 300
+#define LONG_PRESS_DELAY 150
 
 static const uint32_t cardCookie = 322417479;
 
