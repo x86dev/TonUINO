@@ -21,7 +21,7 @@
 //#define FIVEBUTTONS
 
 // uncomment the below line to stop playback when card is removed
-#define PAUSEONCARDREMOVAL
+//##define PAUSEONCARDREMOVAL
 
 // delay for volume buttons
 #define LONG_PRESS_DELAY 150
@@ -157,9 +157,9 @@ void resetSettings() {
   Serial.println(F("=== resetSettings()"));
   mySettings.cookie = cardCookie;
   mySettings.version = 2;
-  mySettings.maxVolume = 25;
+  mySettings.maxVolume = 30;
   mySettings.minVolume = 5;
-  mySettings.initVolume = 12;
+  mySettings.initVolume = 18;
   mySettings.eq = 1;
   mySettings.locked = false;
   mySettings.standbyTimer = 0;
