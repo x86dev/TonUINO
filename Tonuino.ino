@@ -277,24 +277,20 @@ Modifier *activeModifier = NULL;
 class FeedbackModifier: public Modifier {
   public:
     virtual bool handleVolumeDown() {
-      if (volume > mySettings.minVolume) {
-        mp3.playAdvertisement(volume - 1);
+      if (volume > mySettings.minVolume)
+      {
+        mp3.playAdvertisement(306);
+        delay(150);
       }
-      else {
-        mp3.playAdvertisement(volume);
-      }
-      delay(500);
       Serial.println(F("== FeedbackModifier::handleVolumeDown()!"));
       return false;
     }
     virtual bool handleVolumeUp() {
-      if (volume < mySettings.maxVolume) {
-        mp3.playAdvertisement(volume + 1);
+      if (volume < mySettings.maxVolume)
+      {
+        mp3.playAdvertisement(306);
+        delay(150);
       }
-      else {
-        mp3.playAdvertisement(volume);
-      }
-      delay(500);
       Serial.println(F("== FeedbackModifier::handleVolumeUp()!"));
       return false;
     }
